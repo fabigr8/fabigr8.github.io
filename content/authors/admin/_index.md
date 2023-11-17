@@ -2,8 +2,8 @@
 # Display name
 title: Fabian Gwinner
 
-# Name pronunciation (optional)
-name_pronunciation: [ˈfaːbiaːn] [ɡˈvɪnɐ]
+# Name pronunciation (optional) [ˈfaːbiaːn] [ɡˈvɪnɐ]
+name_pronunciation: fabian 
 
 
 # Full name (for SEO)
