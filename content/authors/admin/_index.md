@@ -1,50 +1,52 @@
 ---
 # Display name
-title: 吳健雄
+title: Fabian Gwinner
 
 # Name pronunciation (optional)
-name_pronunciation: Chien Shiung Wu
+name_pronunciation: [ˈfaːbiaːn] [ɡˈvɪnɐ]
+
 
 # Full name (for SEO)
-first_name: Shiung Wu
-last_name: Chien
+first_name: Fabian
+last_name: Gwinner
 
 # Status emoji
-status:
-  icon: ☕️
+status: 
+  icon: 🧑‍🔬
 
 # Is this the primary user of the site?
 superuser: true
 
 # Role/position/tagline
-role: Professor of Artificial Intelligence
+role: PHD ML and AI
 
 # Organizations/Affiliations to show in About widget
 organizations:
-  - name: Stanford University
-    url: https://www.stanford.edu/
+  - name: Julius-Maximilians-University of Wuerzburg
+    url: https://www.uni-wuerzburg.de/
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include distributed robotics, mobile computing and programmable matter.
+bio: My research interests include Machine Learning, especially Deep Learning, XAI, Decision Support Systems
 
 # Interests to show in About widget
 interests:
   - Artificial Intelligence
-  - Computational Linguistics
-  - Information Retrieval
+  - Machine Learning
+  - Computater Vision
+
 
 # Education to show in About widget
 education:
   courses:
-    - course: PhD in Artificial Intelligence
-      institution: Stanford University
+    - course: Doctorate 
+      institution: Julius-Maximilians-University of Wuerzburg
+      year: TBD
+    - course: M. Sc. in Business Informatics 
+      institution: Julius-Maximilians-University of Wuerzburg
+      year: 2014
+    - course: B. Sc. in Business Informatics 
+      institution: Baden-Wuerttemberg Cooperative State University (DHBW)
       year: 2012
-    - course: MEng in Artificial Intelligence
-      institution: Massachusetts Institute of Technology
-      year: 2009
-    - course: BSc in Artificial Intelligence
-      institution: Massachusetts Institute of Technology
-      year: 2008
 
 # Skills
 # For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
@@ -75,12 +77,12 @@ skills:
         percent: 60
         icon: person-hiking
         icon_pack: fas
-      - name: Cats
+      - name: 
         description: ''
         percent: 100
         icon: cat
         icon_pack: fas
-      - name: Photography
+      - name: Neuroscience
         description: ''
         percent: 80
         icon: camera-retro
@@ -94,31 +96,31 @@ social:
   - icon: envelope
     icon_pack: fas
     link: '/#contact'
-  - icon: twitter
+  - icon: researchgate
     icon_pack: fab
-    link: https://twitter.com/GeorgeCushen
-    label: Follow me on Twitter
+    link: https://www.researchgate.net/profile/Fabian-Gwinner
+    #label: Follow me on Twitter
     display:
       header: true
-  - icon: graduation-cap # Alternatively, use `google-scholar` icon from `ai` icon pack
-    icon_pack: fas
-    link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
+  - icon: google-scholar # Alternatively, use `google-scholar` icon from `ai` icon pack
+    icon_pack: ai
+    link: https://scholar.google.de/citations?user=G2Bp9JwAAAAJ
   - icon: github
     icon_pack: fab
-    link: https://github.com/gcushen
+    link: https://github.com/fabigr8
   - icon: linkedin
     icon_pack: fab
-    link: https://www.linkedin.com/
+    link: https://www.linkedin.com/in/fabian-gwinner/
   # Link to a PDF of your resume/CV.
   # To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.yaml`,
   # and uncomment the lines below.
-  - icon: cv
-    icon_pack: ai
-    link: uploads/resume.pdf
+  #- icon: cv
+  #  icon_pack: ai
+  #  link: uploads/resume.pdf
 
 # Highlight the author in author lists? (true/false)
 highlight_name: true
 ---
 
-Chien Shiung Wu is a professor of artificial intelligence at the Stanford AI Lab. Her research interests include distributed robotics, mobile computing and programmable matter. She leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+Fabian is a PHD Candidate at the University of Wuerzburg. His research interests include Applied Machine Learning, Deep Learning, XAI and GraphML.
 {style="text-align: justify;"}
