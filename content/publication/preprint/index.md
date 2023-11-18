@@ -1,12 +1,14 @@
 ---
-title: "An example preprint / working paper"
+title: "Comparing expert systems and their explainability through similarity"
 authors:
 - admin
-date: "2019-04-07T00:00:00Z"
+- Christoph Tomitza
+- Axel Winkelmann
+date: "2023-15-07T00:00:00Z"
 doi: ""
 
 # Schedule page publish date (NOT publication's date).
-publishDate: "2017-01-01T00:00:00Z"
+publishDate: "2023-15-07T00:00:00Z"
 
 # Publication type.
 # Accepts a single type but formatted as a YAML list (for Hugo requirements).
@@ -14,23 +16,38 @@ publishDate: "2017-01-01T00:00:00Z"
 publication_types: ["article"]
 
 # Publication name and optional abbreviated publication name.
-publication: ""
-publication_short: ""
+publication: "Comparing expert systems and their explainability through similarity"
+publication_short: "comparing XAI similarity"
 
-abstract: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.
+abstract: In our work, we propose the use of Representational Similarity Analysis (RSA) for
+explainable AI (XAI) approaches, intending to gain further insights into Machine Learn-
+ing (ML) models as well as their explanations. We created a computational evaluative
+study to demonstrate that Similarity Analysis of explanations can contribute to a better
+understanding of XAI-based decision support systems. In our study, we address how the
+application of our approach can be leveraged to analyze the robustness of explanations
+for several different underlying types of changes in the ML Pipeline. The study results
+further indicate that changes in the ML pipeline, such as an altered preprocessing or
+a different machine learning model, lead to different explanations and to which extent
+the similarity changes. Similarity analysis of explanations allows practitioners to mon-
+itor explanation robustness and compare different XAI systems for the same decisions.
+Conjointly to the results and practical use in operationalized ML, as well as the bene-
+fits and limitations of the approach, we discuss insights into the field of computational
+neuroscience and neural information processing
 
 # Summary. An optional shortened abstract.
-summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum.
+summary: In our work, we propose the use of Representational Similarity Analysis (RSA) for
+explainable AI (XAI) approaches, intending to gain further insights into Machine Learn-
+ing (ML) models as well as their explanations.
 
 tags:
 - Source Themes
-featured: false
+featured: true
 
 links:
 - name: Custom Link
-  url: http://example.org
-url_pdf: http://arxiv.org/pdf/1512.04133v1
-url_code: 'https://github.com/HugoBlox/hugo-blox-builder'
+  url: ''
+url_pdf: ''
+url_code: ''
 url_dataset: '#'
 url_poster: '#'
 url_project: ''

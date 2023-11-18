@@ -2,7 +2,7 @@
 title: 'Security Implications of Consortium Blockchains: The Case of Ethereum Networks'
 authors:
 - Adrian Hofmann
-- Fabian Gwinner
+- admin
 - Axel Winkelmann
 - Christian Janiesch
 date: '2021-12-12'

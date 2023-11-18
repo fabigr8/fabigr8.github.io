@@ -42,10 +42,10 @@ header:
     highlight_active_link: true
 
 # Site footer
-
+# # This work is licensed under {license}
 footer:
   copyright:
-    notice: '© {year} Me. This work is licensed under {license}'
+    notice: '© {year} Fabian Gwinner'
     license:
       enable: true
       allow_derivatives: false
