@@ -95,7 +95,7 @@ skills:
 social:
   - icon: envelope
     icon_pack: fas
-    link: '/#contact'
+    link: 'mailto:fabian.gwinner∂uni-wuerzburg{-dot-}de'
   - icon: researchgate
     icon_pack: fab
     link: https://www.researchgate.net/profile/Fabian-Gwinner

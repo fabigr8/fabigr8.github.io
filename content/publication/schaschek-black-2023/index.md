@@ -32,9 +32,7 @@ tags:
 - Source Themes
 featured: true
 
-links:
-- name: Custom Link
-  url: ''
+
 url_pdf: 'http://xkdd2023.isti.cnr.it/papers/425.pdf'
 
 
