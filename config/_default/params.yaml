@@ -6,9 +6,9 @@
 # Appearance
 
 appearance:
-  theme_day: ocean
-  theme_night: ocean
-  font: ocean
+  theme_day: minimal
+  theme_night: minimal
+  font: minimal
   font_size: M
 
 # SEO
@@ -35,11 +35,11 @@ header:
   navbar:
     enable: true
     align: r
-    show_logo: false
+    show_logo: true
     show_language: false
     show_day_night: true
     show_search: true
-    highlight_active_link: true
+    highlight_active_link: false
 
 # Site footer
 # # This work is licensed under {license}
