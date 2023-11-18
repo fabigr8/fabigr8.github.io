@@ -26,7 +26,7 @@ summary: In our work, we propose the use of Representational Similarity Analysis
 
 tags:
 - Source Themes
-featured: true
+featured: false
 
 links:
 # - name: Custom Link
