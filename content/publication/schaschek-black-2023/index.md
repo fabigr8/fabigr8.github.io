@@ -25,4 +25,18 @@ abstract: The volatile digital economy forces enterprises to tap into the potent
   gap by quantitatively and qualitatively investigating the capabilities of different
   explainability methods for Graph Convolutional Neural Networks in the context of
   outcome prediction.
+
+summary: 'In our paper we quantitatively and qualitatively investigating the capabilities of different
+  explainability methods for Graph Convolutional Neural Networks in the context of
+  outcome prediction'
+
+links:
+  url_pdf: 'http://xkdd2023.isti.cnr.it/papers/425.pdf'
+
+featured: true
+
+image:
+  caption: 'Image credit: [F.Gwinner](https://fabigr8.github.io/)'
+  focal_point: ""
+  preview_only: false
 ---
