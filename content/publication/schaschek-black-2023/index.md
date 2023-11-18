@@ -34,7 +34,7 @@ featured: true
 
 links:
 - name: Custom Link
-  url: 'http://xkdd2023.isti.cnr.it/papers/425.pdf'
+  url: ''
 url_pdf: 'http://xkdd2023.isti.cnr.it/papers/425.pdf'
 
 
