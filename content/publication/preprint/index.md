@@ -1,5 +1,5 @@
 ---
-title: "Working Paper: Comparing explainability through similarity"
+title: "Working Paper - Comparing explainability through similarity"
 authors:
 - admin
 - Christoph Tomitza
@@ -16,8 +16,8 @@ publishDate: "2023-07-01T00:00:00Z"
 publication_types: ["article"]
 
 # Publication name and optional abbreviated publication name.
-publication: "Working Paper: Comparing explainability through similarity"
-publication_short: "Working Paper: Comparing explainability through similarity""
+publication: "Working Paper -  Comparing explainability through similarity"
+publication_short: "Working Paper - Comparing explainability through similarity"
 
 abstract: In our work, we propose the use of Representational Similarity Analysis (RSA) for explainable AI (XAI) approaches, intending to gain further insights into Machine Learning (ML) models as well as their explanations. We created a computational evaluative study to demonstrate that Similarity Analysis of explanations can contribute to a better understanding of XAI-based decision support systems. In our study, we address how the application of our approach can be leveraged to analyze the robustness of explanations for several different underlying types of changes in the ML Pipeline. The study results further indicate that changes in the ML pipeline, such as an altered preprocessing or a different machine learning model, lead to different explanations and to which extent the similarity changes. Similarity analysis of explanations allows practitioners to monitor explanation robustness and compare different XAI systems for the same decisions.Conjointly to the results and practical use in operationalized ML, as well as the bene- fits and limitations of the approach, we discuss insights into the field of computational neuroscience and neural information processing
 
