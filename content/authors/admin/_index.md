@@ -29,24 +29,24 @@ organizations:
 bio: My research interests include Machine Learning, especially Deep Learning, XAI, Decision Support Systems
 
 # Interests to show in About widget
-interests:
-  - Artificial Intelligence
-  - Machine Learning
-  - Computater Vision
+# interests:
+#   - Artificial Intelligence
+#   - Machine Learning
+#   - Computater Vision
 
 
 # Education to show in About widget
-education:
-  courses:
-    - course: Doctorate 
-      institution: Julius-Maximilians-University of Wuerzburg
-      year: TBD
-    - course: M. Sc. in Business Informatics 
-      institution: Julius-Maximilians-University of Wuerzburg
-      year: 2014
-    - course: B. Sc. in Business Informatics 
-      institution: Baden-Wuerttemberg Cooperative State University (DHBW)
-      year: 2012
+# education:
+#   courses:
+#     - course: Doctorate 
+#       institution: Julius-Maximilians-University of Wuerzburg
+#       year: TBD
+#     - course: M. Sc. in Business Informatics 
+#       institution: Julius-Maximilians-University of Wuerzburg
+#       year: 2014
+#     - course: B. Sc. in Business Informatics 
+#       institution: Baden-Wuerttemberg Cooperative State University (DHBW)
+#       year: 2012
 
 # Skills
 # For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
