@@ -12,14 +12,14 @@ publication_types:
 - paper-conference
 publication: '*Machine Learning and Principles and Practice of Knowledge Discovery
   in Databases*'
-abstract: The volatile digital economy forces enterprises to tap into the potential
-  of data-driven decision-making. Accordingly, proactive management of business processes
-  is increasingly gaining momentum in information system research. In addition to
-  the superior model performance of predictive models, the explainability of deep
-  learning models becomes a crucial requirement for real-world applications. Although
-  recent works on explainable predictive business process monitoring propose various
-  explainability approaches, preliminary research has been conducted on evaluating
-  explanations regarding their faithfulness. Since human-created ground truth for
+abstract: The volatile digital economy forces enterprises to tap into the potential 
+  of data-driven decision-making. Accordingly, proactive management of business processes 
+  is increasingly gaining momentum in information system research. In addition to the 
+  superior model performance of predictive models, the explainability of deep learning 
+  models becomes a crucial requirement for real-world applications. Although recent 
+  works on explainable predictive business process monitoring propose various 
+  explainability approaches, preliminary research has been conducted on evaluating 
+  explanations regarding their faithfulness. Since human-created ground truth for 
   evaluating algorithms is often unavailable or subjective, objective metrics are
   needed to assess the faithfulness of explanations. We contribute to this research
   gap by quantitatively and qualitatively investigating the capabilities of different
@@ -35,8 +35,9 @@ links:
 
 featured: true
 
+# 'Image credit: [F.Gwinner](https://fabigr8.github.io/)'
 image:
-  caption: 'Image credit: [F.Gwinner](https://fabigr8.github.io/)'
+  caption: 'Figure 1'
   focal_point: ""
   preview_only: false
 ---
