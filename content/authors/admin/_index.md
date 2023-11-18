@@ -18,11 +18,11 @@ status:
 superuser: true
 
 # Role/position/tagline
-role: PHD ML and AI
+role: PHD Candidate
 
 # Organizations/Affiliations to show in About widget
 organizations:
-  - name: Julius-Maximilians-University of Wuerzburg
+  - name: University of Wuerzburg
     url: https://www.uni-wuerzburg.de/
 
 # Short bio (displayed in user profile at end of posts)
@@ -101,7 +101,7 @@ social:
     link: https://www.researchgate.net/profile/Fabian-Gwinner
     #label: Follow me on Twitter
     display:
-      header: true
+      header: false
   - icon: google-scholar # Alternatively, use `google-scholar` icon from `ai` icon pack
     icon_pack: ai
     link: https://scholar.google.de/citations?user=G2Bp9JwAAAAJ
@@ -122,5 +122,8 @@ social:
 highlight_name: true
 ---
 
-Fabian is a PHD Candidate at the University of Wuerzburg. His research interests include Applied Machine Learning, Deep Learning, XAI and GraphML.
+I am a PHD candidate at the University of Würzburg. My research focuses on the creation of social cognitive computing systems that leverage machine learning and artificial neural networks to aid decision making, as well as the understanding and influence of algorithms on society, businesses, and individuals. To examine socio-technical systems and technologies holistically, I employ qualitative, quantitative, and computational methodologies.
+
+I received my Master of Science in Information Systems from the University of Wuerzburg in 2014. After that, I moved to Munich to work as a IT Consultant, with a focus on advanced planning and optimization in Supply chain Networks. After 4.5 years of consulting multinational companies such as BMW, Daimler, Thyssen Krupp, Freudenberg, I left the industry in 2019 to start a doctorade at my alma mater. I worked for three years on "DeepScan" a research project, where we studied algorithm theory, computational complexity, and explainability for machine learning-based fraud detection. Furthermore I worked on the project Pipe AI on industrial process prediction with XAI.
+
 {style="text-align: justify;"}
