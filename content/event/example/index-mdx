@@ -1,28 +1,43 @@
 ---
-title: Example Talk
+title: Vorlesung - Operations Research
 
-event: Hugo Blox Builder Conference
-event_url: https://example.org
+event: DHBW
+event_url: https://www.dhbw.de/english/home
 
 location: Hugo Blox Builder HQ
 address:
-  street: 450 Serra Mall
-  city: Stanford
-  region: CA
-  postcode: '94305'
-  country: United States
+  street: Lohrtalweg 10
+  city: Mosbach
+  region: BY
+  postcode: '74821'
+  country: GER
 
-summary: An example talk using Hugo Blox Builder's Markdown slides feature.
-abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellusac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam.'
+summary: Classic Operations 
+abstract: 'The module is an OR introductions course with lectures on different solution approaches e. g. for linear optimization or graph problems. The lecture is supported through several tutorials with manual excercises and jupyter notebooks (can be found in my github https://github.com/fabigr8).
+
+Outline:
+    - Intro OR: origin and distinction from other fields like Stochastics and Machine Learning, P vs. NP problems, distinction between solution, search and decision.
+    - Linear Optimisation I: Practical relevance, problem definition, simple solution, graphical solution
+    - Linear Optimisation II: Simplex, interpretation and limitations
+    - Graph Theory I: Practical relevance, problem definition, design of graphs, shortest paths in graphs
+    - Graph theory II: Minimally exciting trees, Network technique
+    - Simulation: Practical relevance, problem definition, simulation theory, techniques (f.e. generation of random numbers, Monte Carlo simulation)
+    - Transport Problems I: Introduction to transport problems, Stepping Stone Method, North West Corner Method
+    - Transport problems II: MODI method, linear assignment problem
+    - Combinatorial and integer Optimisation I: Combinatorial and Integer Optimisation, Branch and Bound, Greedy Algorithm,
+    - Combinatorial and integer Optimisation II: heuristic solution methods based on the knapsack problem / travelling salesman problem
+    - Outlook and exam preparation: Outlook OR (Evolutionary Algorithms, Theorems of EA and EA for the Verification of OR solutions, OR and Machine Learning), exam preparation.
+
+'
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
-date: '2030-06-01T13:00:00Z'
-date_end: '2030-06-01T15:00:00Z'
+date: '2021-12-01T13:00:00Z'
+date_end: '2022-02-28T15:00:00Z'
 all_day: false
 
 # Schedule page publish date (NOT talk date).
-publishDate: '2017-01-01T00:00:00Z'
+publishDate: '2021-12-01T13:00:00Z'
 
 authors: []
 tags: []
