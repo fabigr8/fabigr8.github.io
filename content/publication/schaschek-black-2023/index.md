@@ -3,7 +3,7 @@ title: 'From Black Box to Glass Box: Evaluating Faithfulness of Process Predicti
   with GCNNs'
 authors:
 - Myriam Schaschek
-- Fabian Gwinner
+- admin
 - Benedikt Hein
 - Axel Winkelmann
 date: '2023-10-01'
@@ -26,4 +26,17 @@ abstract: The volatile digital economy forces enterprises to tap into the potent
   explainability methods for Graph Convolutional Neural Networks in the context of
   outcome prediction.
 
+summary: 'In our paper we investigating the capabilities of different explainability methods for GNNs'
+
+tags:
+- Source Themes
+featured: true
+
+links:
+  url_pdf: 'http://xkdd2023.isti.cnr.it/papers/425.pdf'
+
+image:
+  caption: 'Figure 1'
+  focal_point: ""
+  preview_only: false
 ---
