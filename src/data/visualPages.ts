@@ -17,7 +17,7 @@ export const visualPages: VisualPage[] = [
   {
     title: "Explanation Similarity Analysis",
     description: "A scrollytelling piece showing how to analyze and compare explanations of machine learning models.",
-    url: "",
+    url: "https://fabigr8.github.io/Scrollytelling-Paper-ESA/",
     tag: "scrollytelling",
     status: "live",
     date: "19 Jul 2026",   
