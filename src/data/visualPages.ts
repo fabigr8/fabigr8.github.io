@@ -15,15 +15,17 @@ export interface VisualPage {
 
 export const visualPages: VisualPage[] = [
   {
-    title: "Coming soon",
-    description: "A scrollytelling piece is in the works — check back here once it's live.",
+    title: "Explanation Similarity Analysis",
+    description: "A scrollytelling piece showing how to analyze and compare explanations of machine learning models.",
     url: "",
     tag: "scrollytelling",
-    status: "coming-soon",
+    status: "live",
+    date: "19 Jul 2026",   
+    thumbnail: "/images/ST-thumb1.png",
   },
   {
     title: "Coming soon",
-    description: "Another visual essay is planned for this space.",
+    description: "A scrollytelling piece is in the works — check back here once it's live.",
     url: "",
     tag: "visualization",
     status: "coming-soon",
