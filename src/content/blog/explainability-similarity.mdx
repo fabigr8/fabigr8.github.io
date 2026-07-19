@@ -1,0 +1,29 @@
+---
+title: "Comparing expert systems through similarity"
+description: "A short, informal look at using representational similarity to reason about explainability."
+pubDate: 2026-07-10
+tags: ["xai", "decision-support", "research"]
+---
+
+import Callout from "../../components/Callout.astro";
+
+One thread in my work asks a deceptively simple question: when two models make the
+same decision, are they *reasoning* the same way? Similarity-based analysis gives us
+a handle on that — comparing internal representations rather than just outputs.
+
+<Callout type="note" title="Why this matters">
+  If two expert systems agree on the *what* but disagree on the *how*, their
+  explanations aren't interchangeable — and that has real consequences for decision
+  support.
+</Callout>
+
+## The idea in one paragraph
+
+Representational Similarity Analysis (RSA) compares the geometry of how different
+systems represent the same inputs. Instead of asking "did they agree?", we ask "did
+they organize the problem the same way?". Two models can reach identical predictions
+through very different internal structure — and that difference is exactly what an
+explanation should surface.
+
+## More details
+Want to Know more about RSA? jump into the Visiual Scorolly telling experience I created. 

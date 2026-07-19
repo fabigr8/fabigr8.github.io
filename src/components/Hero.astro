@@ -1,0 +1,39 @@
+---
+import SocialIcons from "./SocialIcons.astro";
+import { site } from "../data/site";
+---
+
+<section class="flex flex-col-reverse items-start gap-10 sm:flex-row sm:items-center sm:gap-14">
+  <div class="flex-1">
+    <p class="text-sm font-medium tracking-wide text-zinc-500 dark:text-zinc-400">
+      {site.title} · {site.affiliation}
+    </p>
+    <h1 class="mt-3 font-serif text-5xl font-medium tracking-tight text-zinc-900 sm:text-6xl dark:text-zinc-50">
+      {site.name}
+    </h1>
+    <p class="mt-6 max-w-xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+      {site.tagline}
+    </p>
+    <div class="mt-8 flex flex-wrap items-center gap-5">
+      <SocialIcons />
+      <a
+        href="/cv"
+        class="group inline-flex items-center gap-1.5 text-sm font-medium text-zinc-900 dark:text-zinc-100"
+      >
+        View CV
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <img
+    src={site.avatar}
+    alt={`Portrait of ${site.name}`}
+    width="176"
+    height="176"
+    class="h-36 w-36 shrink-0 rounded-full object-cover sm:h-44 sm:w-44"
+    onerror="this.style.display='none'"
+  />
+</section>

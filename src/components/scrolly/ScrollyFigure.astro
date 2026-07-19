@@ -1,0 +1,13 @@
+---
+// A sticky graphic panel. Place these in the ScrollyContainer `graphic` slot.
+// Its `id` must match a ScrollyStep `id`. Put anything inside: SVG, an <img>,
+// a chart, or (if you add D3) a mount node to draw into.
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+---
+
+<div class="scrolly-figure" data-graphic={id}>
+  <slot />
+</div>

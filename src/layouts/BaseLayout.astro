@@ -1,0 +1,78 @@
+---
+import "@fontsource-variable/inter";
+import "@fontsource-variable/newsreader";
+import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../data/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /**
+   * Content width:
+   *  - "wide"    — default; roomy layout for most pages
+   *  - "reading" — narrower measure for long-form articles
+   *  - "full"    — no wrapper (full-bleed, e.g. scrollytelling)
+   */
+  width?: "wide" | "reading" | "full";
+}
+
+const {
+  title,
+  description = site.tagline,
+  width = "wide",
+} = Astro.props;
+
+const wrapperClass =
+  width === "reading" ? "max-w-3xl" : "max-w-5xl";
+
+const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.title}`;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+
+    <!-- No-flash theme init: default dark, honor a saved choice. Runs before paint. -->
+    <script is:inline>
+      (function () {
+        try {
+          const saved = localStorage.getItem("theme");
+          const dark = saved ? saved === "dark" : true;
+          document.documentElement.classList.toggle("dark", dark);
+        } catch (_) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <Nav />
+    <main class="flex-1">
+      {
+        width === "full" ? (
+          <slot />
+        ) : (
+          <div class:list={["mx-auto w-full px-6 py-16 sm:py-24", wrapperClass]}>
+            <slot />
+          </div>
+        )
+      }
+    </main>
+    <Footer />
+  </body>
+</html>

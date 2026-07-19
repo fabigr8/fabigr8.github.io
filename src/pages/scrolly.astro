@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ScrollyContainer from "../components/scrolly/ScrollyContainer.astro";
+import ScrollyStep from "../components/scrolly/ScrollyStep.astro";
+import ScrollyFigure from "../components/scrolly/ScrollyFigure.astro";
+
+// This is a BARE TEMPLATE — a working scaffold to build real scrollytelling
+// stories on. Duplicate this file, replace the placeholder steps and figures,
+// and match each ScrollyStep `id` to a ScrollyFigure `id`.
+---
+
+<BaseLayout title="Scrollytelling Template" width="full">
+  <div class="mx-auto w-full max-w-5xl px-5 py-12 sm:py-16">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-accent-500 dark:text-accent-400">
+        Template
+      </p>
+      <h1 class="mt-2 font-serif text-4xl font-medium tracking-tight text-zinc-900 dark:text-zinc-50">
+        Scrollytelling scaffold
+      </h1>
+      <p class="mt-3 text-zinc-600 dark:text-zinc-300">
+        Scroll down — the sticky panel on the right swaps as each step reaches
+        the middle of the screen. Replace these placeholders with your own
+        narrative and visuals. See <code class="rounded bg-zinc-100 px-1 py-0.5 text-sm dark:bg-zinc-800">src/components/scrolly/</code>.
+      </p>
+    </div>
+
+    <div class="mt-14">
+      <ScrollyContainer>
+        <!-- Sticky visuals: one ScrollyFigure per step id -->
+        <ScrollyFigure slot="graphic" id="one">
+          <svg viewBox="0 0 200 200" class="w-full max-w-xs text-accent-500" aria-hidden="true">
+            <circle cx="100" cy="100" r="70" fill="none" stroke="currentColor" stroke-width="6" />
+            <circle cx="100" cy="100" r="10" fill="currentColor" />
+          </svg>
+        </ScrollyFigure>
+        <ScrollyFigure slot="graphic" id="two">
+          <svg viewBox="0 0 200 200" class="w-full max-w-xs text-accent-500" aria-hidden="true">
+            <rect x="30" y="110" width="30" height="60" fill="currentColor" />
+            <rect x="85" y="70" width="30" height="100" fill="currentColor" opacity="0.75" />
+            <rect x="140" y="40" width="30" height="130" fill="currentColor" opacity="0.5" />
+          </svg>
+        </ScrollyFigure>
+        <ScrollyFigure slot="graphic" id="three">
+          <svg viewBox="0 0 200 200" class="w-full max-w-xs text-accent-500" aria-hidden="true">
+            <line x1="60" y1="60" x2="140" y2="80" stroke="currentColor" stroke-width="3" />
+            <line x1="60" y1="60" x2="90" y2="150" stroke="currentColor" stroke-width="3" />
+            <line x1="140" y1="80" x2="90" y2="150" stroke="currentColor" stroke-width="3" />
+            <circle cx="60" cy="60" r="14" fill="currentColor" />
+            <circle cx="140" cy="80" r="14" fill="currentColor" opacity="0.75" />
+            <circle cx="90" cy="150" r="14" fill="currentColor" opacity="0.5" />
+          </svg>
+        </ScrollyFigure>
+
+        <!-- Narrative steps -->
+        <ScrollyStep id="one">
+          <h2 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Step one</h2>
+          <p class="mt-2 text-zinc-600 dark:text-zinc-300">
+            Introduce the idea. This step is tied to the circle on the right by a
+            shared <code class="text-sm">id="one"</code>.
+          </p>
+        </ScrollyStep>
+        <ScrollyStep id="two">
+          <h2 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Step two</h2>
+          <p class="mt-2 text-zinc-600 dark:text-zinc-300">
+            As you scroll here, the graphic transitions to the bars. Swap in a
+            chart, an image, or a D3 mount node.
+          </p>
+        </ScrollyStep>
+        <ScrollyStep id="three">
+          <h2 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Step three</h2>
+          <p class="mt-2 text-zinc-600 dark:text-zinc-300">
+            The final beat reveals the network. Add as many steps as you need —
+            just keep each step id matched to a figure id.
+          </p>
+        </ScrollyStep>
+      </ScrollyContainer>
+    </div>
+  </div>
+</BaseLayout>

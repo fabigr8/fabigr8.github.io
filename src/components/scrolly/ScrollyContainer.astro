@@ -1,0 +1,68 @@
+---
+// Two-column scrollytelling layout: a scrolling narrative beside a sticky
+// graphic column. Pass step markup as the default slot and the sticky visuals
+// via the `graphic` slot. The runtime (scrolly.ts) wires them up by id.
+//
+// Usage:
+//   <ScrollyContainer>
+//     <ScrollyFigure slot="graphic" id="a">…</ScrollyFigure>
+//     <ScrollyStep id="a">…</ScrollyStep>
+//   </ScrollyContainer>
+---
+
+<div data-scrolly class="scrolly">
+  <div class="grid gap-8 md:grid-cols-2">
+    <div class="scrolly-graphic order-first md:order-last">
+      <div class="sticky top-20 flex min-h-[60vh] items-center justify-center md:min-h-[80vh]">
+        <div class="relative w-full">
+          <slot name="graphic" />
+        </div>
+      </div>
+    </div>
+    <div class="scrolly-steps">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  /* Slotted content lives outside this component's scope, so style globally. */
+  .scrolly-figure {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 400ms ease, transform 400ms ease;
+    pointer-events: none;
+  }
+  .scrolly-figure.is-active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+
+  .scrolly-step {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0.35;
+    transition: opacity 300ms ease;
+  }
+  .scrolly-step.is-active {
+    opacity: 1;
+  }
+  .scrolly-step:first-child {
+    min-height: 40vh;
+  }
+  .scrolly-step:last-child {
+    min-height: 50vh;
+  }
+</style>
+
+<script>
+  import "./scrolly.ts";
+</script>

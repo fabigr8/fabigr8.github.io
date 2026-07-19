@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VisualPageCard from "../components/VisualPageCard.astro";
+import { visualPages } from "../data/visualPages";
+---
+
+<BaseLayout
+  title="Visual Pages"
+  description="Interactive scrollytelling and data visualization pieces."
+>
+  <div class="mb-10">
+    <h1 class="font-serif text-3xl font-medium tracking-tight text-zinc-900 dark:text-zinc-50">
+      Visual Pages
+    </h1>
+    <p class="mt-2 max-w-2xl text-zinc-600 dark:text-zinc-300">
+      Scroll-driven visual essays and data explorations, usually built and hosted as their
+      own standalone pages and linked from here. Nothing published yet — check back soon.
+    </p>
+  </div>
+
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {visualPages.map((page) => <VisualPageCard page={page} />)}
+  </div>
+</BaseLayout>

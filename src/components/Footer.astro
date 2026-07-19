@@ -1,0 +1,14 @@
+---
+import SocialIcons from "./SocialIcons.astro";
+import { site } from "../data/site";
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 border-t border-zinc-200 py-12 dark:border-zinc-900">
+  <div class="mx-auto flex max-w-5xl flex-col items-center gap-4 px-6 text-center">
+    <SocialIcons size={18} />
+    <p class="text-sm text-zinc-500 dark:text-zinc-500">
+      © {year} {site.name}. Built with <a class="underline decoration-dotted underline-offset-2 hover:text-accent-500" href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>.
+    </p>
+  </div>
+</footer>

@@ -1,0 +1,14 @@
+---
+// One narrative step. Its `id` must match a ScrollyFigure `id` in the graphic
+// slot; when this step scrolls to center, that figure is shown.
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+---
+
+<section class="scrolly-step" data-step={id}>
+  <div class="rounded-xl border border-zinc-200 bg-white/60 p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/60">
+    <slot />
+  </div>
+</section>
