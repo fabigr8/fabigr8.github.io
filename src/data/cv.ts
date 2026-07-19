@@ -17,7 +17,7 @@ export interface ResearchProject {
 export const bio = [
   "I am an AI Research Engineer at Capgemini's Global AI Futures Lab in Munich, working at the intersection of applied machine learning research and real-world AI systems. My work spans Agentic AI and AI for R&D, Pharma, and Biotech, building on my recent role as a Senior Data Scientist delivering agentic AI systems for pharmaceutical partners including Roche and Bayer, and scalable computational drug discovery pipelines. In the Lab, I explore emerging research directions and frontier AI challenges through exploratory work and hands-on prototyping.",
   "I hold a doctoral degree in information systems from the University of Würzburg, with a research focus on robust and explainable AI, with applied work in anomaly detection and industrial process analysis. I have co-organized a Decision Support Systems reading group and an Information Systems Engineering group.",
-  "Before my PhD, I worked as a Senior Consultant in supply chain and manufacturing planning, gaining important industry experience, software development skills, and consulting expertise.",
+  "Before my PhD, I worked as a Senior Consultant - supply chain management, gaining important industry experience, software development skills, and consulting expertise.",
 ];
 
 export const researchInterests = [
