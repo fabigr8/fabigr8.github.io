@@ -22,10 +22,9 @@ export const bio = [
 
 export const researchInterests = [
   "Explainable AI (XAI)",
-  "Process Mining",
-  "Anomaly & Fraud Detection",
   "Decision Support Systems",
   "Deep Learning",
+  "Graph Machine Learning",
   "Information Systems Engineering",
 ];
 
