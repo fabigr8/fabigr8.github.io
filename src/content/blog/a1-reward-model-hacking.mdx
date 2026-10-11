@@ -1,0 +1,286 @@
+
+---
+title: "Composite objectives are reward models, and ours was hacked in ninety-five minutes"
+description: "Your independence check isn’t independent"
+pubDate: 2026-10-04
+tags: ["cheminformatics", "BioML", "research"]
+---
+
+import Callout from "../../components/Callout.astro";
+
+Composite objectives are reward models, and ours was hacked in ninety-five minutes
+
+
+<Callout type="note" title="Abstract">
+  Early-stage drug discovery increasingly decides what is worth making before
+  anything is made. We composed a scalar objective from four published ADMET 
+  predictors and QED and maximised it with a SELFIES genetic algorithm carrying 
+  no chemical knowledge beyond its mutation operator. In ninety-five minutes on one 
+  machine the search
+  reached a composite score exceeded by no approved drug, converging on a single
+  chemically impossible motif. Around this we built a pre-registered audit:
+  ensemble uncertainty, independent scorers of a held-out architecture, and a
+  plausibility battery calibrated against approved drugs. The audit largely
+  failed. Ensemble spread contracted on the exploited molecules; the
+  pre-registered independent scorer, which shares training data with the
+  objective, detected no divergence in any seed; the plausibility battery flagged
+  82% of output through a single criterion while being structurally unable to
+  detect the failure mode that emerged. A scorer trained on genuinely disjoint
+  data detected divergence in every seed.
+</Callout>
+
+
+## 1. Composite objectives are reward models
+
+Early-stage drug discovery increasingly decides what is worth making before
+anything is made. Models trained on public assay data estimate properties —
+solubility, metabolic liability, cardiac toxicity — for compounds that exist
+only as strings, and generative or search-based systems propose new compounds
+that are ranked by exactly those models, with a chemist seeing only what
+survives. 
+
+Scalarising several learned property predictors and handing the
+result to an optimizer is standard practice in that setting, and structurally it is
+reinforcement learning against a learned reward model. The expected failure is
+the same: the optimizer maximises the predictor rather than the property the
+predictor estimates. That this occurs is established. Renz et al. (2019) demonstrated it for
+molecular optimization and introduced the control design we adopt here; Langevin
+et al. (2022) reproduced it across three optimizer families; Gao and Coley
+(2020) quantified the synthesizability failure and the cost of constraining
+against it. Our H1, H2 and H4 are replications and are not offered as novel.
+
+The question we address is narrower and, we think, more useful: given that the
+failure occurs, **would a conventional audit detect it?** We therefore
+pre-registered three detection instruments and one mitigation before running the
+experiment, and report what each saw.
+
+## 2. The Method - Our Pipeline
+
+**Objective.** Five components: aqueous solubility (AqSolDB), hERG blocker
+probability, CYP3A4 inhibition and Caco-2 permeability, all from ADMET-AI's
+pretrained Chemprop ensembles, plus RDKit QED. Each is mapped to its percentile
+against the 2,845-molecule DrugBank reference set and combined by weighted
+geometric mean, chosen so that no component can be fully sacrificed.
+
+**Optimizer.** A SELFIES genetic algorithm implemented in-repo: token
+substitution, insertion and deletion, population 200, 100 generations, elitism
+at 10%, tournament selection. SELFIES guarantees syntactic validity, so the
+result cannot be attributed to invalid-SMILES handling. Five seeds per arm;
+458,519 molecules evaluated in total; top-100 distinct molecules reported per
+seed.
+
+**Arms.** D, a random sample of the starting library; R, the approved drugs,
+scored but never optimised; A, unconstrained optimization; B, an
+applicability-domain penalty below ECFP4 Tanimoto θ ∈ {0.30, 0.40, 0.50} to the
+predictors' training set; C, arm B at θ = 0.40 plus a synthesizability penalty.
+
+**Audit instruments.** (i) Per-endpoint spread across each ADMET-AI ensemble's
+five members. (ii) Independent scorers following Renz: LightGBM over RDKit
+descriptors and MACCS keys, in three variants — trained on the full TDC
+`train_val` split, on a deterministic half of it, and on the TDC `test` split.
+Because ADMET-AI is a fixed artifact fit on all of `train_val`, only the third
+is genuinely disjoint from the objective's training data; the second was
+nonetheless pre-registered as the headline oracle. Independent scorers exist for
+hERG and solubility only. (iii) A structural implausibility battery, a molecule
+failing if it violates at least two criteria, with thresholds calibrated against
+arm R so that ≤5% of approved drugs are flagged (achieved 4.9%) and frozen
+before any arm A molecule was generated.
+
+**Decoupling detector.** Per generation, elite sets were scored by both the
+objective and each independent scorer; decoupling is recorded at the first
+generation where their gap exceeds its generation-0 value by a declared margin
+for three consecutive generations.
+
+## 3. Results
+
+### 3.1 The objective saturates beyond the approved-drug range
+
+| arm | objective (mean ± sd) | percentile vs. approved drugs |
+|---|---|---|
+| D — random library sample | 0.327 ± 0.013 | 34.5th |
+| R — approved drugs | 0.425 | 50th by construction |
+| **A — unconstrained** | **0.886 ± 0.010** | **100th** |
+| B, θ = 0.50 | 0.840 ± 0.009 | 99.9th |
+
+The highest-scoring approved drug reaches 0.847. All 500 arm A molecules across
+five seeds exceed it; the distributions do not overlap. All four learned
+components saturate together (0.902–0.946 in DrugBank-percentile units). QED,
+the only non-learned component, is the least saturated at 0.761 and is the
+binding constraint on 93% of arm A's reported molecules. Arm A's output spans
+4.8 Murcko scaffolds per seed on average; arms B and C span one; a hundred
+random library molecules span 97.
+
+### 3.2 The exploit does not depend on exotic ionisation states
+
+Arm A converges on a tetrahydropyran core bearing carbanion or carbocation
+centres and a C–Br bond. Restricting to the 85 reported molecules that are both
+battery-clean and charge-neutral leaves the mean objective at 0.883, and all 85
+still exceed the best approved drug. Mean molecular weight is 208 Da in arm A
+and 132 Da in arm B θ = 0.50, against 386 Da for approved drugs; mean ring count
+falls from 2.6 to 0.2 and 0.0 respectively. Figure 1 shows eight cluster 
+representatives with their member counts and scores, n=400 for the acyclic 
+cluster and n=55 for the tetrahydropyran.
+
+![eight cluster representatives with their member counts](/images/a1-reward-model-hacking/figure1.png)
+
+
+### 3.3 Ensemble spread contracts on the exploited molecules
+
+| per-endpoint ensemble sd | arm A | arm R |
+|---|---|---|
+| hERG | 0.005 | 0.063 |
+| CYP3A4 | 0.000 | 0.054 |
+| Caco-2 | 0.150 | 0.140 |
+| solubility | 0.357 | 0.311 |
+
+On both classification endpoints ensemble members agree substantially more on
+arm A than on approved drugs.
+
+### 3.4 Divergence is detected only by the data-disjoint scorer
+
+Spearman correlation between the objective's predictor and the independent
+scorer:
+
+| population | pre-registered (shares data) | disjoint |
+|---|---|---|
+| starting library | +0.807 | +0.774 |
+| approved drugs | +0.875 | +0.835 |
+| **arm A** | **+0.117 ± 0.223** | **+0.106 ± 0.179** |
+| arm B θ = 0.30 | +0.544 ± 0.124 | +0.413 ± 0.170 |
+| arm B θ = 0.50 | +0.649 ± 0.149 | +0.580 ± 0.147 |
+
+Agreement recovers monotonically as θ tightens. The hERG channel of this test is
+uninformative: in arm A the objective's hERG predictions have sd 0.0044 and the
+pre-registered scorer's 0.0007, so per-seed correlations (−0.33 to +0.39) are
+noise between two near-constants, and the corresponding mean absolute
+disagreement falls from 0.20 on arm R to 0.016 on arm A. In level terms, arm A's
+mean hERG prediction is 0.016 from ADMET-AI, 0.001 from the pre-registered
+scorer and **0.211** from the disjoint scorer.
+
+Per-generation decoupling in arm A (Figure 1), seeds detected out of five:
+
+| margin | model control | pre-registered | disjoint |
+|---|---|---|---|
+| 0.05 | 2/5 | 2/5 | **5/5** |
+| 0.10 (primary) | 1/5 | **0/5** | **5/5** |
+| 0.15 | 0/5 | 0/5 | **5/5** |
+
+The pre-registered result is null. The disjoint scorer detects decoupling at
+generations 9–51, after which the objective holds near 0.94 while the
+independent estimate peaks at 0.79 and declines to 0.65; mean maximum gap 0.248
+against 0.040 for the pre-registered variant.
+
+![Objective and independent estimate per generation, arm A, under two independent scorers](/images/a1-reward-model-hacking/figure2.png)
+**Figure 1.** Objective score and independent estimate of the per-generation
+elite set, arm A, mean across five seeds with ±1 sd. Left: the pre-registered
+independent scorer, which shares ADMET-AI's training data. Right: the same
+recipe trained on the disjoint TDC `test` split. Only covered endpoints (hERG,
+solubility) enter both series.
+
+### 3.5 The plausibility battery flags through one criterion
+
+The frozen battery flags 82.4% ± 16.0% of arm A. Of its eight criteria, one —
+implausible charge centres — accounts for 0.82; synthetic accessibility accounts
+for 0.06; the remaining six fire on nothing. Every continuous criterion in the
+battery is an upper bound.
+
+The fraction of reported molecules that are both acyclic and under 250 Da is
+0.79 in arm A, 1.00 in arms B θ ≥ 0.40 and C, 0.004 in the random library sample
+and 0.115 among approved drugs. The battery scores 76% of arm B θ = 0.50 as
+plausible.
+
+Applying the battery's own calibration rule to the lower tail yields MW ≥ 100 Da,
+which flags nothing (optimised-arm median weights are 124–207 Da), and no
+admissible ring criterion, since 16.6% of approved drugs are acyclic. Adding
+"acyclic counts as a failure" would raise arm B θ = 0.50 from 0.238 to 0.352
+while flagging 10.0% of approved drugs, twice the pre-registered ceiling. This
+counterfactual is post-hoc; the battery was not modified.
+
+### 3.6 The applicability-domain constraint trades score for flagged implausibility
+
+| arm | objective | implausibility | mean similarity to training data |
+|---|---|---|---|
+| A | 0.886 ± 0.010 | 0.824 ± 0.160 | 0.254 |
+| B θ = 0.30 | 0.864 ± 0.011 | 0.492 ± 0.191 | 0.413 |
+| B θ = 0.50 | 0.840 ± 0.009 | 0.238 ± 0.036 | 0.583 |
+
+Implausibility falls by 0.254 and the objective by 0.024 across the sweep. Arm C
+is a null condition: mean SA 4.09 against arm B θ = 0.40's 4.03, with no
+molecule in either crossing the penalty's threshold, which binds only in arm A
+(50% of reported molecules).
+
+## 4. Discussion: instruments that inherit their blind spots
+
+Two of these results are properties of the audit rather than of the optimizer,
+and both generalise past chemistry.
+
+**Independence is a property of training data, not of architecture.** The
+pre-registered oracle differs from ADMET-AI in architecture, featurization and
+hyperparameters, and shares its labels. It certified arm A: no decoupling in any
+seed, and a hERG estimate four times lower than the objective's own. The same
+recipe trained on disjoint data detected decoupling in every seed and gave a
+hERG estimate thirteen times higher. An audit trained on the same data inherits
+the same blind spot, so holding out the architecture while reusing the benchmark
+buys almost nothing — a condition that is hard to satisfy wherever a field
+reuses a small number of public splits, as cheminformatics reuses TDC's.
+
+**A filter inherits the permissiveness of its reference set.** Calibrating
+against approved drugs is methodologically correct and was blocking in our
+pre-registration, precisely because an uncalibrated battery that flags most real
+drugs is uninterpretable. The cost is that the filter inherits the diversity of
+approved drugs, which include small acyclic compounds. Our optimizer moved
+toward fragment space, where every continuous criterion — all upper bounds, all
+built for the way generative models usually fail — is silent, and §3.5 shows no
+lower bound could have been admitted at the same calibration. The blind spot is
+structural, not a thresholding error.
+
+Ensemble spread adds a third, weaker case of the same pattern: members sharing
+an architecture, a featurization and a training set agree where they have
+learned the same shortcut, so their agreement cannot measure competence outside
+that set. Confidence-gated filtering would have ranked arm A's molecules among
+the run's most reliable predictions.
+
+The mitigation result should be read with §3.5 in hand. The
+applicability-domain constraint cuts flagged implausibility by 71% for 5% of
+objective score, which is an excellent trade and the one practice we would
+recommend adopting. But arm B θ = 0.50 still scores at the 99.9th percentile and
+consists entirely of sub-250 Da acyclic chains: the constraint removed the
+exploit the battery detects and left one it cannot, and the implausibility
+column records that as an improvement. Notably, no arm optimised an objective
+containing any notion of plausibility; every constraint acted on the search
+space rather than on the score.
+
+Accordingly, a follow-up should pre-register the data-disjoint scorer as the
+headline oracle; a fragment criterion calibrated against a reference set other
+than approved drugs, with its own declared ceiling; independent scorers for all
+four endpoints; a redesign or removal of arm C; and a plausibility term inside
+the objective rather than only in the reporting.
+
+## 5. Limitations
+
+Only two of four learned endpoints have independent scorers, so exploitation
+routed through Caco-2 or CYP3A4 is invisible to the disjoint scorer. 
+The independent scorers are themselves imperfect 
+(disjoint variant: hERG ROC-AUC 0.826, solubility MAE 0.881 log units), 
+so some measured divergence is oracle error; the decoupling
+detector triggers on change relative to generation 0 to cancel constant offsets.
+The applicability domain is computed over ECFP4 while the objective's predictors
+are message-passing networks, so arm B constrains a proxy. Reported
+implausibility is a lower bound. One optimizer family, one objective
+composition, no docking, no synthesis, no assay. Nothing here was measured in a
+laboratory: the ground truth throughout is one model's estimate checked against
+another's. The molecules reported are artifacts of an adversarial search
+procedure and are not drug candidates. None of this is a criticism of ADMET-AI
+or TDC, which are well-built resources used here outside their intended regime.
+
+## 6. Conclusion
+
+A conventional audit with: held-out architecture, ensemble uncertainty, a calibrated
+structural filter, failed to detect a reward-hacking failure that was obvious
+on inspection, and failed for reasons that were properties of how the audit was
+constructed. Only the instrument trained on disjoint data detected it, in every
+seed. The cheapest durable fix is probably not a stricter filter downstream but
+an objective that is harder to maximise in the first place.
+
+Repository, pre-registration, deviations log and machine-generated per-seed
+results: [link will be added soon]. `make reproduce` regenerates every number above.
