@@ -37,15 +37,18 @@ only as strings, and generative or search-based systems propose new compounds
 that are ranked by exactly those models, with a chemist seeing only what
 survives. 
 
-Scalarising several learned property predictors and handing the
-result to an optimizer is standard practice in that setting, and structurally it is
-reinforcement learning against a learned reward model. The expected failure is
-the same: the optimizer maximises the predictor rather than the property the
-predictor estimates. That this occurs is established. Renz et al. (2019) demonstrated it for
-molecular optimization and introduced the control design we adopt here; Langevin
-et al. (2022) reproduced it across three optimizer families; Gao and Coley
-(2020) quantified the synthesizability failure and the cost of constraining
-against it. Our H1, H2 and H4 are replications and are not offered as novel.
+Scalarising several learned property predictors and handing the result to an 
+optimizer is standard practice in that setting, and structurally it is reinforcement 
+learning against a learned reward model. The expected failure is the same: the 
+optimizer maximises the predictor rather than the property the predictor estimates. 
+That this occurs is established. Renz et al. (2019) demonstrated it for molecular 
+optimization and introduced the control design we adopt here; Langevin et al. (2022) 
+reproduced it across three optimizer families; Gao and Coley (2020) quantified the 
+synthesizability failure and the cost of constraining against it. **That our optimizer 
+breaks the objective, that it does so by leaving the chemistry the predictors were fit 
+on, and that constraining it back costs objective score are therefore replications, 
+and we do not offer them as new.**
+
 
 The question we address is narrower and, we think, more useful: given that the
 failure occurs, **would a conventional audit detect it?** We therefore
@@ -115,12 +118,13 @@ centres and a C–Br bond. Restricting to the 85 reported molecules that are bot
 battery-clean and charge-neutral leaves the mean objective at 0.883, and all 85
 still exceed the best approved drug. Mean molecular weight is 208 Da in arm A
 and 132 Da in arm B θ = 0.50, against 386 Da for approved drugs; mean ring count
-falls from 2.6 to 0.2 and 0.0 respectively. Figure 1 shows eight cluster 
-representatives with their member counts and scores, n=400 for the acyclic 
-cluster and n=55 for the tetrahydropyran.
+falls from 2.6 to 0.2 and 0.0 respectively. 
 
 ![eight cluster representatives with their member counts](/images/a1-reward-model-hacking/figure1.png)
 
+Figure 1. Murcko scaffold clusters of arm A’s reported molecules, with the 
+highest-scoring representative of each. Cluster sizes are pooled across five seeds; 
+400 of 500 molecules are acyclic and a further 55 share the tetrahydropyran core.
 
 ### 3.3 Ensemble spread contracts on the exploited molecules
 
@@ -155,7 +159,7 @@ disagreement falls from 0.20 on arm R to 0.016 on arm A. In level terms, arm A's
 mean hERG prediction is 0.016 from ADMET-AI, 0.001 from the pre-registered
 scorer and **0.211** from the disjoint scorer.
 
-Per-generation decoupling in arm A (Figure 1), seeds detected out of five:
+Per-generation decoupling in arm A (Figure 2), seeds detected out of five:
 
 | margin | model control | pre-registered | disjoint |
 |---|---|---|---|
@@ -169,7 +173,7 @@ independent estimate peaks at 0.79 and declines to 0.65; mean maximum gap 0.248
 against 0.040 for the pre-registered variant.
 
 ![Objective and independent estimate per generation, arm A, under two independent scorers](/images/a1-reward-model-hacking/figure2.png)
-**Figure 1.** Objective score and independent estimate of the per-generation
+**Figure 2.** Objective score and independent estimate of the per-generation
 elite set, arm A, mean across five seeds with ±1 sd. Left: the pre-registered
 independent scorer, which shares ADMET-AI's training data. Right: the same
 recipe trained on the disjoint TDC `test` split. Only covered endpoints (hERG,
