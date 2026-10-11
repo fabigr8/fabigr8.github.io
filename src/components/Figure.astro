@@ -1,0 +1,28 @@
+---
+// A blog figure whose image opens full size in a new tab on click.
+// Usage in .mdx: <Figure src="/images/post/fig1.png" alt="…">Caption (markdown ok)</Figure>
+interface Props {
+  src: string;
+  alt: string;
+}
+const { src, alt } = Astro.props;
+const hasCaption = Astro.slots.has("default");
+---
+
+<figure class="not-prose my-8">
+  <a href={src} target="_blank" rel="noopener" title="Open full size in a new tab">
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      class="mx-auto h-auto max-w-full cursor-zoom-in rounded-lg border border-zinc-200 bg-white dark:border-zinc-800"
+    />
+  </a>
+  {
+    hasCaption && (
+      <figcaption class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+        <slot />
+      </figcaption>
+    )
+  }
+</figure>

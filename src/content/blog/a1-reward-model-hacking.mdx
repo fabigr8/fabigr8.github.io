@@ -7,6 +7,7 @@ tags: ["cheminformatics", "BioML", "research"]
 ---
 
 import Callout from "../../components/Callout.astro";
+import Figure from "../../components/Figure.astro";
 
 
 <Callout type="note" title="Abstract">
@@ -120,11 +121,11 @@ still exceed the best approved drug. Mean molecular weight is 208 Da in arm A
 and 132 Da in arm B θ = 0.50, against 386 Da for approved drugs; mean ring count
 falls from 2.6 to 0.2 and 0.0 respectively. 
 
-![eight cluster representatives with their member counts](/images/a1-reward-model-hacking/figure1.png)
-
-Figure 1. Murcko scaffold clusters of arm A’s reported molecules, with the 
-highest-scoring representative of each. Cluster sizes are pooled across five seeds; 
-400 of 500 molecules are acyclic and a further 55 share the tetrahydropyran core.
+<Figure src="/images/a1-reward-model-hacking/figure1.png" alt="eight cluster representatives with their member counts">
+  **Figure 1.** Murcko scaffold clusters of arm A’s reported molecules, with the
+  highest-scoring representative of each. Cluster sizes are pooled across five seeds;
+  400 of 500 molecules are acyclic and a further 55 share the tetrahydropyran core.
+</Figure>
 
 ### 3.3 Ensemble spread contracts on the exploited molecules
 
@@ -172,12 +173,13 @@ generations 9–51, after which the objective holds near 0.94 while the
 independent estimate peaks at 0.79 and declines to 0.65; mean maximum gap 0.248
 against 0.040 for the pre-registered variant.
 
-![Objective and independent estimate per generation, arm A, under two independent scorers](/images/a1-reward-model-hacking/figure2.png)
-**Figure 2.** Objective score and independent estimate of the per-generation
-elite set, arm A, mean across five seeds with ±1 sd. Left: the pre-registered
-independent scorer, which shares ADMET-AI's training data. Right: the same
-recipe trained on the disjoint TDC `test` split. Only covered endpoints (hERG,
-solubility) enter both series.
+<Figure src="/images/a1-reward-model-hacking/figure2.png" alt="Objective and independent estimate per generation, arm A, under two independent scorers">
+  **Figure 2.** Objective score and independent estimate of the per-generation
+  elite set, arm A, mean across five seeds with ±1 sd. Left: the pre-registered
+  independent scorer, which shares ADMET-AI's training data. Right: the same
+  recipe trained on the disjoint TDC `test` split. Only covered endpoints (hERG,
+  solubility) enter both series.
+</Figure>
 
 ### 3.5 The plausibility battery flags through one criterion
 
