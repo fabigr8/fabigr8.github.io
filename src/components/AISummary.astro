@@ -1,0 +1,305 @@
+---
+// A collapsed "AI Summary" box for blog posts. The text is pregenerated (passed
+// as slot content); on first open it is revealed token by token, as if streamed
+// from an LLM. Without JS it degrades to a plain <details> with the full text.
+// Usage in .mdx: <AISummary>…text…</AISummary>
+interface Props {
+  title?: string;
+}
+const { title = "AI Summary" } = Astro.props;
+---
+
+<details class="ai-summary not-prose" data-ai-summary>
+  <span class="ai-summary__glow" aria-hidden="true"></span>
+  <summary class="ai-summary__head">
+    <svg class="ai-summary__spark" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9L12 2z"></path>
+      <path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z" opacity="0.7"></path>
+    </svg>
+    <span class="ai-summary__title">{title}</span>
+    <span class="ai-summary__hint">Click to expand</span>
+    <svg class="ai-summary__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M6 9l6 6 6-6"></path>
+    </svg>
+  </summary>
+  <div class="ai-summary__body" data-ai-body>
+    <slot />
+  </div>
+</details>
+
+<style>
+  .ai-summary {
+    --ai-accent: #6366f1;
+    --ai-accent-soft: rgb(99 102 241 / 0.14);
+    --ai-border: rgb(165 180 252 / 0.7);
+    --ai-bg: #ffffff;
+    --ai-dot: rgb(99 102 241 / 0.22);
+    --ai-text: #3f3f46;
+    --ai-muted: #71717a;
+
+    position: relative;
+    isolation: isolate;
+    margin: 1.5rem 0;
+    border: 1px solid var(--ai-border);
+    border-radius: 0.875rem;
+    color: var(--ai-text);
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  :global(.dark) .ai-summary {
+    --ai-accent: #a5b4fc;
+    --ai-accent-soft: rgb(129 140 248 / 0.16);
+    --ai-border: rgb(129 140 248 / 0.35);
+    --ai-bg: #09090b;
+    --ai-dot: rgb(165 180 252 / 0.2);
+    --ai-text: #d4d4d8;
+    --ai-muted: #a1a1aa;
+  }
+
+  /* Minimal backdrop: a soft glow plus a faint dot grid, visible while collapsed. */
+  .ai-summary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      radial-gradient(120% 140% at 100% 0%, var(--ai-accent-soft), transparent 60%),
+      radial-gradient(var(--ai-dot) 1px, transparent 1px) 0 0 / 14px 14px;
+    -webkit-mask-image: linear-gradient(100deg, transparent 15%, #000 100%);
+    mask-image: linear-gradient(100deg, transparent 15%, #000 100%);
+    opacity: 1;
+    transition: opacity 0.4s;
+  }
+  /* Opaque fill that hides the glow layer everywhere except the outer rim. */
+  .ai-summary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--ai-bg);
+  }
+  .ai-summary[open]::before {
+    opacity: 0.35;
+  }
+  .ai-summary:hover {
+    border-color: var(--ai-accent);
+  }
+  .ai-summary[open] {
+    box-shadow: 0 0 0 4px var(--ai-accent-soft);
+  }
+
+  .ai-summary__head {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.1rem;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .ai-summary__head::-webkit-details-marker {
+    display: none;
+  }
+  .ai-summary__head:focus-visible {
+    outline: 2px solid var(--ai-accent);
+    outline-offset: -2px;
+    border-radius: 0.875rem;
+  }
+  .ai-summary__spark {
+    color: var(--ai-accent);
+    flex: none;
+  }
+  .ai-summary__title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .ai-summary__hint {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--ai-muted);
+    transition: opacity 0.2s;
+  }
+  .ai-summary[open] .ai-summary__hint {
+    opacity: 0;
+  }
+  .ai-summary__chevron {
+    flex: none;
+    color: var(--ai-muted);
+    transition: transform 0.25s;
+  }
+  .ai-summary[open] .ai-summary__chevron {
+    transform: rotate(180deg);
+  }
+
+  .ai-summary__body {
+    position: relative;
+    padding: 0.15rem 1.1rem 1.1rem;
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+  .ai-summary__body :global(p + p) {
+    margin-top: 0.6rem;
+  }
+  .ai-summary[open] .ai-summary__body {
+    animation: ai-summary-in 0.3s ease-out;
+  }
+
+  .ai-summary__body :global(.ai-caret) {
+    display: inline-block;
+    width: 0.5em;
+    height: 1em;
+    margin-left: 1px;
+    vertical-align: text-bottom;
+    border-radius: 1px;
+    background: var(--ai-accent);
+    animation: ai-caret 1s steps(2, start) infinite;
+  }
+
+  /* One-off light that travels once around the border (triggered when the text starts generating). */
+  @property --ai-angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+  }
+  /* Sits behind the opaque box, so only the rounded rim around it shows. */
+  .ai-summary__glow {
+    position: absolute;
+    inset: -2px;
+    z-index: -2;
+    border-radius: calc(0.875rem + 2px);
+    pointer-events: none;
+    opacity: 0;
+  }
+  .ai-summary__glow::before,
+  .ai-summary__glow::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: conic-gradient(
+      from var(--ai-angle),
+      transparent 0deg,
+      transparent 250deg,
+      var(--ai-accent) 330deg,
+      #fff 360deg
+    );
+  }
+  .ai-summary__glow::after {
+    filter: blur(8px);
+  }
+  .ai-summary[data-glow] .ai-summary__glow {
+    animation: ai-glow-fade 2.4s ease-in-out forwards;
+  }
+  .ai-summary[data-glow] .ai-summary__glow::before,
+  .ai-summary[data-glow] .ai-summary__glow::after {
+    animation: ai-glow-spin 2.4s cubic-bezier(0.45, 0, 0.35, 1) forwards;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ai-summary__glow {
+      display: none;
+    }
+  }
+
+  @keyframes ai-glow-spin {
+    from {
+      --ai-angle: 0deg;
+    }
+    to {
+      --ai-angle: 360deg;
+    }
+  }
+  @keyframes ai-glow-fade {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    12%,
+    80% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes ai-summary-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+  }
+  @keyframes ai-caret {
+    to {
+      visibility: hidden;
+    }
+  }
+</style>
+
+<script>
+  // Streaming pace: words revealed per tick and delay between ticks (ms).
+  const WORDS_PER_TICK = [2, 3];
+  const TICK_DELAY = [40, 120];
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function stream(box: HTMLDetailsElement, body: HTMLElement) {
+    // Lock the final height so the page doesn't jump while text grows.
+    body.style.minHeight = `${body.offsetHeight}px`;
+
+    const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
+    const nodes: { node: Text; text: string }[] = [];
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+      const text = n.textContent ?? "";
+      if (text.trim()) nodes.push({ node: n as Text, text });
+    }
+    if (!nodes.length) return;
+
+    nodes.forEach(({ node }) => (node.textContent = ""));
+    const caret = document.createElement("span");
+    caret.className = "ai-caret";
+    caret.setAttribute("aria-hidden", "true");
+    body.setAttribute("aria-busy", "true");
+
+    let ni = 0;
+    let ti = 0;
+    const tokens = nodes.map(({ text }) => text.match(/\s*\S+\s*|\s+/g) ?? [text]);
+    nodes[0].node.after(caret);
+
+    const finish = () => {
+      caret.remove();
+      body.removeAttribute("aria-busy");
+      body.style.minHeight = "";
+    };
+
+    const tick = () => {
+      if (!box.isConnected) return;
+      const [minW, maxW] = WORDS_PER_TICK;
+      const burst = minW + Math.floor(Math.random() * (maxW - minW + 1));
+      for (let i = 0; i < burst && ni < nodes.length; i++) {
+        nodes[ni].node.textContent += tokens[ni][ti++];
+        if (ti >= tokens[ni].length) {
+          ni++;
+          ti = 0;
+        }
+      }
+      if (ni >= nodes.length) return finish();
+      nodes[ni].node.after(caret);
+      setTimeout(tick, TICK_DELAY[0] + Math.random() * (TICK_DELAY[1] - TICK_DELAY[0]));
+    };
+
+    setTimeout(tick, 350);
+  }
+
+  document.querySelectorAll<HTMLDetailsElement>("[data-ai-summary]").forEach((box) => {
+    const body = box.querySelector<HTMLElement>("[data-ai-body]");
+    if (!body) return;
+    let played = false;
+    box.addEventListener("toggle", () => {
+      if (!box.open || played) return;
+      played = true;
+      box.setAttribute("data-glow", "");
+      if (!reduceMotion.matches) stream(box, body);
+    });
+  });
+</script>

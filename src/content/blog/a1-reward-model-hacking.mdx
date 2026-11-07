@@ -8,9 +8,10 @@ tags: ["cheminformatics", "BioML", "research"]
 
 import Callout from "../../components/Callout.astro";
 import Figure from "../../components/Figure.astro";
+import AISummary from "../../components/AISummary.astro";
 
 
-<Callout type="note" title="Abstract">
+<AISummary>
   Early-stage drug discovery increasingly decides what is worth making before
   anything is made. We composed a scalar objective from four published ADMET 
   predictors and QED and maximised it with a SELFIES genetic algorithm carrying 
@@ -26,7 +27,7 @@ import Figure from "../../components/Figure.astro";
   82% of output through a single criterion while being structurally unable to
   detect the failure mode that emerged. A scorer trained on genuinely disjoint
   data detected divergence in every seed.
-</Callout>
+</AISummary>
 
 
 ## 1. Composite objectives are reward models
