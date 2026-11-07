@@ -1,6 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <rect width="64" height="64" rx="14" fill="#6366f1" />
-  <text x="50%" y="52%" dominant-baseline="central" text-anchor="middle"
-        font-family="ui-sans-serif, system-ui, Arial, sans-serif"
-        font-size="30" font-weight="700" fill="#ffffff">FG</text>
+  <g fill="none" stroke-width="5" stroke-linejoin="round">
+    <path d="M9 45 L15 19 M19 45 L25 19" stroke="#c7d2fe" />
+    <path d="M33 20 V45 M31 22.5 H44 M33 32.5 H42" stroke="#ffffff" />
+    <path d="M57 27 C55 22 49 21 47 25.5 C45 29 45 36 47 39.5 C49 44 55 43 57 38.5 V33.5 H51.5" stroke="#ffffff" />
+  </g>
 </svg>

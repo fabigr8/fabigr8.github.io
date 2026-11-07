@@ -1,0 +1,111 @@
+---
+import { site } from "../data/site";
+---
+
+<!--
+  Text-based logo: "FAB/AN GW/INNER" collapses to "//FG" on scroll.
+  The slashes stand in for the "I"s; on collapse they slide to the front.
+  Toggled via [data-compact] on the root, set by the script below.
+-->
+<a href="/" class="logo" aria-label={site.name} data-logo>
+  <span class="mark" aria-hidden="true">
+    <span class="part lead">//</span>
+    <span>F</span>
+    <span class="part ab">AB</span>
+    <span class="part slash">/</span>
+    <span class="part an">AN</span>
+    <span class="part gap">&nbsp;</span>
+    <span>G</span>
+    <span class="part w">W</span>
+    <span class="part slash">/</span>
+    <span class="part inner">INNER</span>
+  </span>
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: rgb(24 24 27);
+    transition: color 0.2s;
+  }
+  :global(.dark) .logo {
+    color: rgb(244 244 245);
+  }
+  .logo:hover {
+    color: var(--color-accent-500);
+  }
+  :global(.dark) .logo:hover {
+    color: var(--color-accent-400);
+  }
+
+  .mark {
+    display: inline-flex;
+    white-space: pre;
+  }
+  .part {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    max-width: 4em;
+    opacity: 1;
+    transition:
+      max-width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.3s ease;
+  }
+  .ab {
+    max-width: 1.5em;
+  }
+  .an {
+    max-width: 1.6em;
+  }
+  .w {
+    max-width: 1.1em;
+  }
+  .slash {
+    max-width: 0.5em;
+  }
+  .gap {
+    max-width: 0.35em;
+  }
+  .inner {
+    max-width: 3.3em;
+  }
+  .lead {
+    max-width: 0;
+    opacity: 0;
+    color: var(--color-accent-500);
+  }
+
+  [data-compact] .part {
+    max-width: 0;
+    opacity: 0;
+  }
+  [data-compact] .lead {
+    max-width: 1em;
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .part {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const logo = document.querySelector<HTMLElement>("[data-logo]");
+  if (logo) {
+    // Hysteresis avoids flicker around the threshold.
+    const update = () => {
+      const y = window.scrollY;
+      if (y > 48) logo.setAttribute("data-compact", "");
+      else if (y < 12) logo.removeAttribute("data-compact");
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+  }
+</script>
