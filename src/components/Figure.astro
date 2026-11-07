@@ -1,5 +1,6 @@
 ---
-// A blog figure whose image opens full size in a new tab on click.
+// A blog figure whose image opens full size in a closable lightbox (<dialog>) on click.
+// Without JS the link falls back to opening the image in a new tab.
 // Usage in .mdx: <Figure src="/images/post/fig1.png" alt="…">Caption (markdown ok)</Figure>
 interface Props {
   src: string;
@@ -9,8 +10,8 @@ const { src, alt } = Astro.props;
 const hasCaption = Astro.slots.has("default");
 ---
 
-<figure class="not-prose my-8">
-  <a href={src} target="_blank" rel="noopener" title="Open full size in a new tab">
+<figure class="not-prose my-8" data-figure>
+  <a href={src} target="_blank" rel="noopener" title="Click to enlarge" data-figure-open>
     <img
       src={src}
       alt={alt}
@@ -18,6 +19,28 @@ const hasCaption = Astro.slots.has("default");
       class="mx-auto h-auto max-w-full cursor-zoom-in rounded-lg border border-zinc-200 bg-white dark:border-zinc-800"
     />
   </a>
+  <dialog
+    data-figure-dialog
+    aria-label={alt}
+    class="m-auto max-h-[92vh] max-w-[94vw] overflow-visible bg-transparent p-0 backdrop:bg-black/80 backdrop:backdrop-blur-sm"
+  >
+    <button
+      type="button"
+      data-figure-close
+      aria-label="Close image"
+      class="absolute -top-3 -right-3 z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-zinc-900 text-white shadow-lg ring-1 ring-white/30 transition-colors hover:bg-accent-500"
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18"></path>
+      </svg>
+    </button>
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      class="block max-h-[92vh] max-w-[94vw] rounded-lg bg-white object-contain"
+    />
+  </dialog>
   {
     hasCaption && (
       <figcaption class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
@@ -26,3 +49,25 @@ const hasCaption = Astro.slots.has("default");
     )
   }
 </figure>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-figure]").forEach((fig) => {
+    const dialog = fig.querySelector<HTMLDialogElement>("[data-figure-dialog]");
+    const opener = fig.querySelector<HTMLElement>("[data-figure-open]");
+    if (!dialog || !opener) return;
+
+    opener.addEventListener("click", (e) => {
+      e.preventDefault();
+      dialog.showModal();
+      document.documentElement.style.overflow = "hidden";
+    });
+    dialog.addEventListener("close", () => {
+      document.documentElement.style.overflow = "";
+    });
+    fig.querySelector("[data-figure-close]")?.addEventListener("click", () => dialog.close());
+    // Click on the backdrop (the dialog element itself, outside the image) closes it.
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+  });
+</script>
